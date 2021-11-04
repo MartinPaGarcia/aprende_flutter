@@ -33,7 +33,7 @@ class AvatarPage extends StatelessWidget {
       body: Center(
         child: FadeInImage(
           placeholder: AssetImage('assets/jar-loading.gif'), 
-          image: NetworkImage('https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/116397349/original/4adccdb75705c5f265105e8b6058218c592fdeb6/do-pixel-art-or-pixel-concept-art-for-you.jpg'),
+          image: NetworkImage('https://images.wallpapersden.com/image/download/iceberg-minimal_a2lnaGWUmZqaraWkpJRnam1lrWZpaWU.jpg'),
           fadeOutDuration: Duration(milliseconds: 250),
           ),
       ),
