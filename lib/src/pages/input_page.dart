@@ -39,7 +39,7 @@ class _InputPageState extends State<InputPage> {
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
-        counter: Text("Letras: ${_nombre?.length}"),
+        counter: Text("Letras: ${_nombre.length}"),
         hintText: "Nombre de la persona",
         labelText: "Nombre",
         helperText: "Solo es el nombre",
