@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_field, prefer_const_constructors_in_immutables, unused_local_variable, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, unused_field, prefer_const_constructors_in_immutables, unused_local_variable, prefer_final_fields, prefer_const_literals_to_create_immutables, avoid_function_literals_in_foreach_calls, deprecated_member_use
 
 import 'package:flutter/material.dart';
 
@@ -13,6 +13,12 @@ class _InputPageState extends State<InputPage> {
   String _nombre = "";
   String _email = "";
   String _fecha = "";
+  /*List<String> _poderes = [
+    "Kame Hame Ha",
+    "Kaio-Ken",
+    "Genkidama",
+    "Ultra-Instinct"
+  ];*/
   TextEditingController _inpputFieldDateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -30,6 +36,8 @@ class _InputPageState extends State<InputPage> {
           _crearPassword(),
           Divider(),
           _crearFecha(context),
+          //Divider(),
+          //_crearDropdown(),
           Divider(),
           _crearPersona(),
         ],
@@ -57,6 +65,27 @@ class _InputPageState extends State<InputPage> {
     );
   }
 
+/*
+  List<DropdownMenuItem<String>> getOpcionesDropdown() {
+    List<DropdownMenuItem<String>> lista = List<DropdownMenuItem<String>>;
+    _poderes.forEach((poder) {
+      lista.add(DropdownMenuItem(
+        child: Text(poder),
+        value: poder,
+      ));
+    });
+    return lista;
+  }
+
+  Widget _crearDropdown() {
+    return DropdownButton<String>(
+      items: getOpcionesDropdown(),
+      onChanged: (opt) {
+        print(opt);
+      },
+    );
+  }
+*/
   Widget _crearPersona() {
     return ListTile(
         title: Text("Nombre es: $_nombre"),
