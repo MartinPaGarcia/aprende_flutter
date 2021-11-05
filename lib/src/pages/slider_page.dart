@@ -10,7 +10,7 @@ class SliderPage extends StatefulWidget {
 }
 
 class _SliderPageState extends State<SliderPage> {
-  double _valorSlider = 0.0;
+  double _valorSlider = 50.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +22,7 @@ class _SliderPageState extends State<SliderPage> {
         child: Column(
           children: <Widget>[
             _crearSlider(),
-            _crearImagen(),
+            Expanded(child: _crearImagen()),
           ],
         ),
       ),
@@ -33,9 +33,9 @@ class _SliderPageState extends State<SliderPage> {
     return Slider(
         activeColor: Colors.indigoAccent,
         label: "Tamaño de imagen",
-        divisions: 20,
+        //divisions: 20,
         value: _valorSlider,
-        min: 0.0,
+        min: 25.0,
         max: 400.0,
         onChanged: (valor) {
           setState(() {
@@ -45,7 +45,11 @@ class _SliderPageState extends State<SliderPage> {
   }
 
   Widget _crearImagen() {
-    return Image(image: NetworkImage(''),
+    return Image(
+      image: NetworkImage(
+          'https://www.sammobile.com/wp-content/uploads/2017/10/Desert-Moon.png'),
+      width: _valorSlider,
+      fit: BoxFit.contain,
     );
   }
 }
