@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_field
+// ignore_for_file: prefer_const_constructors, unused_field, prefer_const_constructors_in_immutables, unused_local_variable, prefer_final_fields
 
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   String _nombre = "";
   String _email = "";
-  String _password = "";
+  String _fecha = "";
+  TextEditingController _inpputFieldDateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +28,8 @@ class _InputPageState extends State<InputPage> {
           _crearEmail(),
           Divider(),
           _crearPassword(),
+          Divider(),
+          _crearFecha(context),
           Divider(),
           _crearPersona(),
         ],
@@ -90,11 +93,41 @@ class _InputPageState extends State<InputPage> {
         suffixIcon: Icon(Icons.password_rounded),
         icon: Icon(Icons.pattern_sharp),
       ),
-      onChanged: (valor) {
-        setState(() {
-          _password = valor;
-        });
+    );
+  }
+
+  Widget _crearFecha(BuildContext context) {
+    return TextField(
+      enableInteractiveSelection: false,
+      controller: _inpputFieldDateController,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+        hintText: "Fecha de nacimiento",
+        labelText: "Fecha de nmacimiento",
+        helperText: "Seleccione su fecha de nacimiento",
+        suffixIcon: Icon(Icons.perm_contact_cal_rounded),
+        icon: Icon(Icons.calendar_today_rounded),
+      ),
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+        _selectDate(context);
       },
     );
+  }
+
+  _selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime(2050),
+      //locale: Locale(),
+    );
+    if (picked != null) {
+      setState(() {
+        _fecha = picked.toString();
+        _inpputFieldDateController.text = _fecha;
+      });
+    }
   }
 }
