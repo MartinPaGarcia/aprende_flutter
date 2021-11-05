@@ -10,7 +10,9 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  String? _nombre;
+  String _nombre = "";
+  String _email = "";
+  String _password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +24,10 @@ class _InputPageState extends State<InputPage> {
         children: <Widget>[
           _crearInput(),
           Divider(),
+          _crearEmail(),
+          Divider(),
+          _crearPassword(),
+          Divider(),
           _crearPersona(),
         ],
       ),
@@ -29,7 +35,6 @@ class _InputPageState extends State<InputPage> {
   }
 
   Widget _crearInput() {
-
     return TextField(
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
@@ -51,7 +56,45 @@ class _InputPageState extends State<InputPage> {
 
   Widget _crearPersona() {
     return ListTile(
-      title: Text("Nombre es: $_nombre"),
+        title: Text("Nombre es: $_nombre"),
+        subtitle: Text("Correo es: $_email"));
+  }
+
+  Widget _crearEmail() {
+    return TextField(
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+        hintText: "Correo electronico",
+        labelText: "Correo",
+        helperText: "Escriba su correo electronico",
+        suffixIcon: Icon(Icons.alternate_email),
+        icon: Icon(Icons.email_rounded),
+      ),
+      onChanged: (valor) {
+        setState(() {
+          _email = valor;
+        });
+      },
+    );
+  }
+
+  Widget _crearPassword() {
+    return TextField(
+      obscureText: true,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+        hintText: "Password",
+        labelText: "Password",
+        helperText: "Escriba su password",
+        suffixIcon: Icon(Icons.password_rounded),
+        icon: Icon(Icons.pattern_sharp),
+      ),
+      onChanged: (valor) {
+        setState(() {
+          _password = valor;
+        });
+      },
     );
   }
 }
