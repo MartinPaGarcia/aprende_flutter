@@ -1,4 +1,6 @@
-// ignore_for_file: prefer_final_fields
+// ignore_for_file: prefer_final_fields, prefer_const_constructors
+
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 
@@ -13,6 +15,7 @@ class _ListaPageState extends State<ListaPage> {
   ScrollController _scrollController = ScrollController();
   List<int> _listaNumeros = [];
   int _ultimoItem = 0;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -23,9 +26,17 @@ class _ListaPageState extends State<ListaPage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        _agregar10();
+        //_agregar10();
+        fetchData();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController.dispose();
   }
 
   @override
@@ -34,7 +45,12 @@ class _ListaPageState extends State<ListaPage> {
       appBar: AppBar(
         title: const Text("Pagina Lista"),
       ),
-      body: _crearLista(),
+      body: Stack(
+        children: <Widget>[
+          _crearLista(),
+          _crearLoading(),
+        ],
+      ),
     );
   }
 
@@ -60,5 +76,45 @@ class _ListaPageState extends State<ListaPage> {
       _listaNumeros.add(_ultimoItem);
     }
     setState(() {});
+  }
+
+  Future fetchData() async {
+    _isLoading = true;
+    setState(() {});
+    final duration = Duration(seconds: 2);
+    return Timer(duration, respuestaHTTP);
+  }
+
+  void respuestaHTTP() {
+    _isLoading = false;
+    _scrollController.animateTo(
+      _scrollController.position.pixels + 100,
+      duration: Duration(milliseconds: 250),
+      curve: Curves.fastOutSlowIn,
+    );
+    _agregar10();
+  }
+
+  Widget _crearLoading() {
+    if (_isLoading) {
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: <Widget>[
+              CircularProgressIndicator(),
+            ],
+          ),
+          SizedBox(
+            height: 15.0,
+          )
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 }
